@@ -21,6 +21,7 @@ public class DBConn {
         } catch(ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("Conectado correctamente a la base de datos");
         return conn;
     }
 }

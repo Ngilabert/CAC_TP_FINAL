@@ -33,12 +33,6 @@
                         </div>
                         <button type="submit" class="btn btn-dark col-sm-10 mt-3">Ingresar</button>
                     </form>
-                    <%
-                        if (!(boolean) session.getAttribute("isLogin")) {
-                            
-                        }
-
-                    %>  
 
                 </div>
 
@@ -47,8 +41,7 @@
                 </div>
             </div>
         </div>
-        <script src="swal.js"></script>
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 
     </body>
 

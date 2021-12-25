@@ -44,16 +44,30 @@ public class UserDAO {
         return usersDB;
     }
 
-    public boolean login(String username, String password) throws SQLException {
+    public User login(String username, String password) throws SQLException {
         PreparedStatement ps;
         ResultSet rs;
+        User respuesta = null;
+        int idusuario, idsucursal;
+        String nombreUsuario, pass;
+
         System.out.println(username + ":" + password);
-        ps = connection.prepareStatement("SELECT nombre_usuario, password_usuario FROM usuario WHERE nombre_usuario = ? AND password_usuario = ?");
+        ps = connection.prepareStatement("SELECT * FROM usuario WHERE nombre_usuario = ? AND password_usuario = ?");
         ps.setString(1, username);
         ps.setString(2, password);
         rs = ps.executeQuery();
-        //System.out.println(rs.getInt("nombre_usuario")+ "-" + rs.getString("password_usuario"));
-         return rs.next();
-  
+        if (rs.next()) {
+            idusuario = rs.getInt("idUsuario");
+            nombreUsuario = rs.getString("nombre_usuario");
+            pass = rs.getString("password_usuario");
+            idsucursal = rs.getInt("sucursal");
+            respuesta = new User(idusuario, nombreUsuario, pass, 0, idsucursal);
+        }
+        /*  private static int id_usuario;
+    private String nombre,password;
+    private int rol;
+    private Sucursal sucursal;*/
+        return respuesta;
+
     }
 }

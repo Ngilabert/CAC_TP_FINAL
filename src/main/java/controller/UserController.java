@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.User;
 
 /**
  *
@@ -47,9 +48,15 @@ public class UserController extends HttpServlet {
                     
                     String userName = request.getParameter("user");
                     String pass = request.getParameter("password");
-                    boolean login = userDB.login(userName, pass);
-                    if (login) {
-                        session.setAttribute("isLogin", login);
+                    User user = userDB.login(userName, pass);
+                    System.out.println(userName+":"+pass);
+                    if (user != null) {
+                        session.setAttribute("isLogin", true);
+                        session.setAttribute("userName",user.getNombre());
+                        session.setAttribute("local",user.getSucursal().getNombre_sucursal());
+                        session.setAttribute("idLocal", user.getSucursal().getId_sucursal());
+
+
                         response.sendRedirect("/views/profile.jsp");
                     }
                     else{
