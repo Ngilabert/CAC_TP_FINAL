@@ -53,7 +53,7 @@ public class ProductosDAO {
         int NvoStock = productoVendido.getCantidad_stock() - cantVendida;
         if (NvoStock < 0) {
             NvoStock = 0;
-        
+
         }
         ps = connection.prepareStatement("UPDATE producto SET cantidad_stock = ? WHERE idproducto = ?");
         System.out.println("Query = " + ps);
@@ -87,5 +87,22 @@ public class ProductosDAO {
         ps.close();
 
         return productDB;
+    }
+
+    public void insertarProducto(Producto producto) throws SQLException {
+        PreparedStatement ps;
+
+        ps = connection.prepareStatement("INSERT INTO producto (`nombre_producto`,`precio`,`cantidad_stock`,`cantidad_alerta`,`sucursal`) VALUES (?,?,?,?,?)");
+        System.out.println("Query = " + ps);
+        ps.setString(1, producto.getNombreProducto());
+        ps.setFloat(2, producto.getPrecio());
+        ps.setInt(3, producto.getCantidad_stock());
+        ps.setInt(4, producto.getCantidad_alerta());
+        ps.setInt(5, producto.getIDSucursal());
+        System.out.println("Query = " + ps);
+
+        ps.executeUpdate();
+        ps.close();
+
     }
 }

@@ -23,7 +23,7 @@ import model.User;
  */
 @WebServlet(name = "UserController", urlPatterns = {"/user/*"})
 public class UserController extends HttpServlet {
-
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -45,18 +45,15 @@ public class UserController extends HttpServlet {
             UserDAO userDB = new UserDAO();
             switch (action) {
                 case "/login":
-                    
                     String userName = request.getParameter("user");
                     String pass = request.getParameter("password");
                     User user = userDB.login(userName, pass);
-                    System.out.println(userName+":"+pass);
+                    System.out.println(userName+"::"+pass);
                     if (user != null) {
                         session.setAttribute("isLogin", true);
                         session.setAttribute("userName",user.getNombre());
                         session.setAttribute("local",user.getSucursal().getNombre_sucursal());
                         session.setAttribute("idLocal", user.getSucursal().getId_sucursal());
-
-
                         response.sendRedirect("/views/profile.jsp");
                     }
                     else{

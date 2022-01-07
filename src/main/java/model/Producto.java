@@ -72,6 +72,9 @@ public class Producto {
     public Sucursal getSucursal() {
         return sucursal;
     }
+    public int getIDSucursal() {
+        return Sucursal.getId_sucursal();
+    }
 
     public void setSucursal(Sucursal sucursal) {
         this.sucursal = sucursal;

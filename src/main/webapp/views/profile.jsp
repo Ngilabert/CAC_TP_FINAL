@@ -52,7 +52,7 @@
                     </tr>
                 </thead>
                 <% int i = 0;
-                for (i = 0; i < productsDB.size(); i++) {%>
+                    for (i = 0; i < productsDB.size(); i++) {%>
                 <tbody>
                     <tr>
                         <th scope="row"><%=productsDB.get(i).getNombreProducto()%></td>
@@ -64,10 +64,50 @@
 
                 </tbody>
                 <% }%>
+
             </table>
 
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Insertar nuevo producto</button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" action="/product/insert">
+                                <div class="mb-3">
+                                    <label for="product-name" class="col-form-label">Nombre Producto</label>
+                                    <input type="text" class="form-control" id="product-name" name="product-name">
+                                </div>
+                                <label for="price" class="col-form-label">Precio Producto</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">$</span>
+                                    <input type="text" class="form-control" name="price" id="price" aria-label="Amount (to the nearest dollar)">
+
+                                </div>
+                                <div class="mb-3">
+                                    <label for="stock" class="col-form-label">Stock</label>
+                                    <input type="number" class="form-control" id="stock" name="stock">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="cant_alert" class="col-form-label">Cantidad Alerta</label>
+                                    <input type="number" class="form-control" id="cant_alerta" name="cant_alerta">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit"  class="btn btn-primary">Send message</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
 
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
     </body>
 </html>
