@@ -51,34 +51,80 @@ public class ProductController extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String action = request.getPathInfo();
-
             HttpSession session = request.getSession();
             SucursalDAO sdao = new SucursalDAO();
             UserDAO userDB = new UserDAO();
-           ProductosDAO pdao = new ProductosDAO();
+            ProductosDAO pdao = new ProductosDAO();
+            Producto productoUpdate = null;
+            int idprod = -1;
+
             switch (action) {
+
                 case "/insert":
                     Producto producto;
                     String nombreProducto;
                     float precio;
                     int cantidad_stock,
                      cantidad_alerta;
-                    System.out.println("intento crear producto");
                     nombreProducto = request.getParameter("product-name");
-                    System.out.println("nombreProducto = " + nombreProducto);
                     precio = Float.valueOf(request.getParameter("price"));
-                    System.out.println("precio = " + precio);
                     cantidad_stock = Integer.valueOf(request.getParameter("stock"));
-                    System.out.println("cantidad_stock = " + cantidad_stock);
                     cantidad_alerta = Integer.valueOf(request.getParameter("cant_alerta"));
-                    System.out.println("cantidad_alerta = " + cantidad_alerta);
-                    producto = new Producto(100, nombreProducto, precio, cantidad_stock, cantidad_alerta, (int)session.getAttribute("idLocal"));
-                    System.out.println(producto);
+                    producto = new Producto(100, nombreProducto, precio, cantidad_stock, cantidad_alerta, (int) session.getAttribute("idLocal"));
                     pdao.insertarProducto(producto);
-                    userDB.login("asd", "asd");
+                    response.sendRedirect("/views/profile.jsp");
                     break;
-                    
+                case "/update":
+                    idprod = Integer.valueOf(request.getParameter("iddddd"));
+                    productoUpdate = pdao.getProductoByID(idprod);
+                    nombreProducto = productoUpdate.getNombreProducto();
+                    precio = productoUpdate.getPrecio();
+                    cantidad_stock = productoUpdate.getCantidad_stock();
+                    cantidad_alerta = productoUpdate.getCantidad_alerta();
+                    session.setAttribute("UpdName", nombreProducto);
+                    session.setAttribute("UpdPrecio", precio);
+                    session.setAttribute("UpdCantStock", cantidad_stock);
+                    session.setAttribute("UpdCantAlerta", cantidad_alerta);
+                    session.setAttribute("idProdUpd", idprod);
+                    // response.sendRedirect("/views/profile.jsp");
+
+                    response.sendRedirect("/views/update.jsp");
+                    break;
+
+                case "/applyUpdate":
+                    idprod = (int) session.getAttribute("idProdUpd");
+                    productoUpdate = pdao.getProductoByID(idprod);
+
+                    nombreProducto = request.getParameter("upd_product-name");
+                    precio = Float.valueOf(request.getParameter("upd_price"));
+                    cantidad_stock = Integer.valueOf(request.getParameter("upd_stock"));
+                    cantidad_alerta = Integer.valueOf(request.getParameter("upd_cant_alerta"));
+                    productoUpdate.setIdProducto(idprod);
+                    productoUpdate.setCantidad_stock(cantidad_stock);
+                    productoUpdate.setNombreProducto(nombreProducto);
+                    productoUpdate.setPrecio(precio);
+                    productoUpdate.setCantidad_alerta(cantidad_alerta);
+                    session.setAttribute("UpdName", nombreProducto);
+                    session.setAttribute("UpdPrecio", precio);
+                    session.setAttribute("UpdCantStock", cantidad_stock);
+                    session.setAttribute("UpdCantAlerta", cantidad_alerta);
+                    session.setAttribute("idProdUpd", idprod);
+
+                    pdao.updateProducto(productoUpdate);
+                    response.sendRedirect("/views/profile.jsp");
+
+                    break;
+
+                case "/delete":
+                    idprod = Integer.valueOf(request.getParameter("iddddd"));
+
+
+                    pdao.deleteProduct(idprod);
+                    response.sendRedirect("/views/profile.jsp");
+
+                    break;
                 default:
+
                     break;
 
             }

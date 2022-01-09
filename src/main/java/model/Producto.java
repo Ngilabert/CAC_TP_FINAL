@@ -12,7 +12,7 @@ import database.SucursalDAO;
  */
 public class Producto {
 
-    private static int idProducto;
+    private int idProducto;
     private String nombreProducto;
     private float precio;
     private int cantidad_stock, cantidad_alerta;
@@ -26,15 +26,14 @@ public class Producto {
         this.cantidad_stock = cantidad_stock;
         this.cantidad_alerta = cantidad_alerta;
         this.sucursal = sdao.getSucursalByID(idSucursal);
-        System.out.println(this);
     }
 
-    public static int getIdProducto() {
+    public  int getIdProducto() {
         return idProducto;
     }
 
-    public static void setIdProducto(int idProducto) {
-        Producto.idProducto = idProducto;
+    public  void setIdProducto(int idProducto) {
+        this.idProducto = idProducto;
     }
 
     public String getNombreProducto() {
@@ -84,5 +83,11 @@ public class Producto {
     public String toString() {
         return "Producto{" + "nombreProducto=" + nombreProducto + ", precio=" + precio + ", cantidad_stock=" + cantidad_stock + ", cantidad_alerta=" + cantidad_alerta + ", sucursal=" + sucursal.getNombre_sucursal() + '}';
     }
-
+    public void Update(Producto prodUpdate){
+        
+        this.nombreProducto = prodUpdate.getNombreProducto();
+        this.precio = prodUpdate.getPrecio();
+        this.cantidad_stock = prodUpdate.getCantidad_stock();
+        this.cantidad_alerta = prodUpdate.getCantidad_alerta();
+    }
 }

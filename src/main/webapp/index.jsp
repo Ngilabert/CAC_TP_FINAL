@@ -18,7 +18,7 @@
                 </div>
                 <div class="col">
 
-                    <form method="POST" action="/user/login" class="bg-light p-5 rounded">
+                    <form method="GET" action="/user/login" class="bg-light p-5 rounded">
                         <div>
                             <label for="staticEmail" class="col-sm-10 col-form-label">Nombre de usuario</label>
                             <div class="col-sm-10">

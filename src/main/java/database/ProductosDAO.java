@@ -105,4 +105,31 @@ public class ProductosDAO {
         ps.close();
 
     }
+
+    public void updateProducto(Producto producto) throws SQLException {
+        PreparedStatement ps;
+
+        ps = connection.prepareStatement("UPDATE producto SET nombre_producto = ?, precio = ?, cantidad_stock = ?, cantidad_alerta = ? WHERE idproducto = ?");
+        System.out.println("Query = " + ps);
+        ps.setString(1, producto.getNombreProducto());
+        ps.setFloat(2, producto.getPrecio());
+        ps.setInt(3, producto.getCantidad_stock());
+        ps.setInt(4, producto.getCantidad_alerta());
+        ps.setInt(5, producto.getIdProducto());
+        System.out.println("Query = " + ps);
+
+        ps.executeUpdate();
+        ps.close();
+
+    }
+
+    public void deleteProduct(int  idProducto) throws SQLException {
+        PreparedStatement ps;
+        ps = connection.prepareStatement("DELETE FROM producto WHERE idproducto = ?");
+        System.out.println("Query = " + ps);
+        ps.setInt(1,idProducto);
+        ps.executeUpdate();
+        ps.close();
+
+    }
 }
